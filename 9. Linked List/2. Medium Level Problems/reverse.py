@@ -19,4 +19,3 @@ class Solution(object):
             current = next_        
 
         return prev
-        
