@@ -40,21 +40,22 @@ class Solution1(object):
     
 
 
-class Solution2(object):
+class Solution(object):
     def lengthOfLongestSubstring(self, s):
         """
         :type s: str
         :rtype: int
         """
+        char_set = set()
         n = len(s)
         left = 0
         right = 0
-        maxi = 0
-        freq = {}
+        max_len = 0
         while right < n:
-            if s[right] in freq:
-                left = max(left, freq[s[right]]+1)
-            freq[s[right]] = right
-            maxi = max(maxi, right-left+1)
+            while s[right] in char_set:
+                char_set.remove(s[left])
+                left += 1
+            char_set.add(s[right])
+            max_len = max(max_len, right-left+1)
             right += 1
-        return maxi
+        return max_len
