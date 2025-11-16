@@ -1,3 +1,23 @@
+class Solution:
+    def func(self, nums, k):
+        n = len(nums)
+        ans = []
+        for i in range(n-k+1):
+            maxi = nums[i]
+            for j in range(i, i+k):
+                maxi = max(maxi, nums[j])
+            ans.append(maxi)
+        return ans
+
+nums = [1,3,-1,-3,5,3,6,7]
+k = 3
+sol = Solution()
+result = sol.func(nums, k)
+print(result)
+
+
+
+
 from sortedcontainers import SortedDict
 
 class Solution1:
