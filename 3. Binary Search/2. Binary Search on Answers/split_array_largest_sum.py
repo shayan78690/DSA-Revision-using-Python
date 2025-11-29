@@ -1,16 +1,4 @@
 class Solution(object):
-    
-    def func(self, nums, k, mid):
-        count = 1
-        s = 0
-        for i in range(len(nums)):
-            if s + nums[i] <= mid:
-                s += nums[i]
-            else:
-                count += 1
-                s = nums[i]
-        return count
-
     def splitArray(self, nums, k):
         """
         :type nums: List[int]
@@ -25,10 +13,21 @@ class Solution(object):
         ans = low
         while low <= high:
             mid = (low + high) // 2
-            temp = self.func(nums, k, mid)
+            temp = self.func(nums, mid)
             if temp <= k:
                 ans = mid
                 high = mid-1
             else:
                 low = mid+1
-        return ans        
+        return ans
+    
+    def func(self, nums, val):
+        s = 0
+        count = 1
+        for i in range(len(nums)):
+            if nums[i] + s <= val:
+                s += nums[i]
+            else:
+                count += 1
+                s = nums[i]
+        return count
