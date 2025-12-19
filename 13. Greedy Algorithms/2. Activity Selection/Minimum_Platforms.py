@@ -1,3 +1,19 @@
+class Solution:    
+    def minPlatform(self, arr, dep):
+        ans = 1
+        n = len(arr)
+        for i in range(n):
+            count = 1
+            for j in range(i+1, n):
+                if (arr[i] >= arr[j] and arr[i] <= dep[j]) or \
+                (arr[j] >= arr[i] and arr[j] <= dep[i]):
+                    count += 1
+            ans = max(ans, count)
+        return ans
+
+
+
+
 class Solution:
     def findPlatform(self, arr, dep):
         n = len(arr)
