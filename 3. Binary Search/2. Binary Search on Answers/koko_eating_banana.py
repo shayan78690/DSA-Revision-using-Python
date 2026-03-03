@@ -1,28 +1,26 @@
 import math
-class Solution(object):
 
-    def func(self, piles, hour):
-        time = 0
-        for i in range(len(piles)):
-            time += math.ceil(float(piles[i])/hour)
-        return time
+def func2(piles, hours):
+    total = 0
+    for pile in piles:
+        total += math.ceil(pile / hours)
+    return total
 
-    def minEatingSpeed(self, piles, h):
-        """
-        :type piles: List[int]
-        :type h: int
-        :rtype: int
-        """
-        n = len(piles)
-        low = 1
-        high = max(piles)
-        ans = high
-        while low <= high:
-            mid = (low+high)//2
-            reqTime = self.func(piles, mid)
-            if reqTime <= h:
-                ans = mid
-                high = mid-1
-            else:
-                low = mid+1
-        return ans
+def func1(piles, h):
+    low = 1
+    high = max(piles)
+    result = high
+    while low <= high:
+        mid = (low + high) // 2
+        hours = func2(piles, mid)
+        if hours <= h:
+            result = mid
+            high = mid-1
+        else:
+            low = mid+1
+    return result
+
+piles = list(map(int, input().split(",")))
+h = int(input())
+result = func1(piles, h)
+print(result)
