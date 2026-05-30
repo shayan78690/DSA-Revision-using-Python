@@ -1,0 +1,25 @@
+class Solution:
+    def maxAbsoluteSum(self, nums):
+
+        currMax = nums[0]
+        maxSum = nums[0]
+
+        currMin = nums[0]
+        minSum = nums[0]
+
+        for i in range(1, len(nums)):
+
+            currMax = max(nums[i],
+                          currMax + nums[i])
+
+            maxSum = max(maxSum,
+                         currMax)
+
+            currMin = min(nums[i],
+                          currMin + nums[i])
+
+            minSum = min(minSum,
+                         currMin)
+
+        return max(abs(maxSum),
+                   abs(minSum))
