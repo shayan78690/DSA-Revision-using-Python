@@ -1,0 +1,15 @@
+prefix = 0
+seen = set()
+
+for num in arr:
+    prefix += num
+
+    if prefix == 0:
+        return True
+
+    if prefix in seen:
+        return True
+
+    seen.add(prefix)
+
+return False
