@@ -1,29 +1,29 @@
 class Solution(object):
+
+    def setRow(self, mat, index, val):
+        n = len(mat)
+        for j in range(n):
+            mat[index][j] = val
+    
+    def setCol(self, mat, index, val):
+        n = len(mat)
+        for i in range(n):
+            mat[i][index] = val
+
     def matrixSumQueries(self, n, queries):
-        """
-        :type n: int
-        :type queries: List[List[int]]
-        :rtype: int
-        """
-        row_seen_count = 0
-        col_seen_count = 0
-        rowIndex = [False] * n
-        colIndex = [False] * n
-        total_sum = 0
-        for i in range(len(queries)-1, -1, -1):
-            type_ = queries[i][0]
-            index = queries[i][1]
-            val = queries[i][2]
-
-            if type_ == 0 and not rowIndex[index]:
-                row_seen_count += 1
-                rowIndex[index] = True
-                total_sum += (n - col_seen_count) * val
-            elif type_ == 1 and not colIndex[index]:
-                col_seen_count += 1
-                colIndex[index] = True
-                total_sum += (n - row_seen_count) * val
-        return total_sum
-
-
-            
+        mat = [[0] * n for _ in range(n)]
+        for query in queries:
+            type_ = query[0]
+            index = query[1]
+            val = query[2]
+            if type_ == 0:
+                self.setRow(mat, index, val)
+            if type_ == 1:
+                self.setCol(mat, index, val)
+        
+        total = 0
+        for i in range(n):
+            for j in range(n):
+                total += mat[i][j]
+        return total
+        
