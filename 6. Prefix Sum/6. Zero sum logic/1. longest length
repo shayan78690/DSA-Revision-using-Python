@@ -3,16 +3,14 @@ class Solution:
         n = len(arr)
         maxi = 0
         hashmap = {}
+        hashmap[0] = -1
         s = 0
         for i in range(n):
             s += arr[i]
-            if s == 0:
-                maxi = i+1
+            if s in hashmap:
+                length = i - hashmap[s]
+                maxi = max(maxi, length)
             else:
-                if s in hashmap:
-                    length = i - hashmap[s]
-                    maxi = max(maxi, length)
-                else:
-                    hashmap[s] = i
+                hashmap[s] = i
         return maxi
         
