@@ -14,7 +14,7 @@ count = 0
 for i in range(L, R+1):
     if prime[i] == 1:
         count += 1
-print(count)ac
+print(count)
 
 
 
