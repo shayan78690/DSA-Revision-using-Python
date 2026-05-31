@@ -28,3 +28,37 @@ class Solution(object):
             if count[i] != 0:
                 return False
         return True
+
+
+
+
+
+
+
+
+
+
+class Solution(object):
+    def findAnagrams(self, s, p):
+        n = len(s)
+        m = len(p)
+        if m > n:
+            return []
+        p_freq = [0] * 26
+        for i in range(m):
+            p_freq[ord(p[i])-ord('a')] += 1
+        
+        window_freq = [0] * 26
+        left = 0
+        right = 0
+        result = []
+        while right < n:
+            window_freq[ord(s[right])-ord('a')] += 1
+            while right-left+1 > m:
+                window_freq[ord(s[left])-ord('a')] -= 1
+                left += 1
+            if right-left+1 == m:
+                if p_freq == window_freq:
+                    result.append(left)
+            right += 1
+        return result 
