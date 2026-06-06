@@ -10,4 +10,20 @@ class Solution(object):
                 else:
                     stack.append(ch)
         return len(stack)
+
+
+class Solution(object):
+    def minAddToMakeValid(self, s):
+        opening = 0
+        insertion = 0
+        for ch in s:
+            if ch == '(':
+                opening += 1
+            else:
+                if opening > 0:
+                    opening -= 1
+                else:
+                    insertion += 1
+        return opening + insertion
+        
         
