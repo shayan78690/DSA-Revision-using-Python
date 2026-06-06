@@ -13,8 +13,8 @@ class Solution(object):
         while right < n:
             freq[s[right]] = freq.get(s[right], 0) + 1
             while freq[s[right]] == k:
+                count += (n-right)
                 freq[s[left]] -= 1
                 left += 1
-            count += left
             right += 1
         return count
