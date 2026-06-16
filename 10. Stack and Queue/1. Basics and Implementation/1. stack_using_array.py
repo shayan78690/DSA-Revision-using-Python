@@ -1,41 +1,26 @@
 class Stack:
     def __init__(self):
-        self.stack = []   # using Python list as an array
-    
-    # Push element into stack
-    def push(self, data):
-        self.stack.append(data)
-        print(f"Pushed {data} into stack")
-    
-    # Pop element from stack
+        self.stack = []
+    def push(self, val):
+        self.stack.append(val)
     def pop(self):
-        if self.is_empty():
-            print("Stack Underflow! Cannot pop.")
-            return None
-        return self.stack.pop()
-    
-    # Peek (return top element without removing)
+        return -1 if not self.stack else self.stack.pop()
     def peek(self):
-        if self.is_empty():
-            print("Stack is empty.")
-            return None
-        return self.stack[-1]
-    
-    # Check if stack is empty
-    def is_empty(self):
+        return -1 if not self.stack else self.stack[-1]
+    def isEmpty(self):
         return len(self.stack) == 0
-    
-    # Display all elements
-    def display(self):
-        print("Stack elements:", self.stack)
 
-# Example usage
-if __name__ == "__main__":
-    s = Stack()
-    s.push(10)
-    s.push(20)
-    s.push(30)
-    s.display()          # Output: [10, 20, 30]
-    print("Top element:", s.peek())   # Output: 30
-    print("Popped element:", s.pop()) # Output: 30
-    s.display()          # Output: [10, 20]
+st = Stack()
+st.push(5)
+st.push(6)
+st.push(7)
+st.push(8)
+st.push(9)
+st.push(10)
+print(st.stack)
+st.pop()
+print(st.stack)
+st.pop()
+print(st.stack)
+print(st.peek())
+print(st.isEmpty())
