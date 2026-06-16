@@ -1,32 +1,27 @@
-class MyQueue(object):
+class Queue:
     def __init__(self):
-        self.s1 = []   # acts as Stack 1
-        self.s2 = []   # acts as Stack 2
-
-    def push(self, x):
-        self.s1.append(x)
-
+        self.stack1 = []
+        self.stack2 = []
+    def push(self, val):
+        self.stack1.append(val)
     def pop(self):
-        if not self.s2:
-            while self.s1:
-                self.s2.append(self.s1.pop())
-        return self.s2.pop()
-
+        if not self.stack2:
+            while self.stack1:
+                element = self.stack1.pop()
+                self.stack2.append(element)
+        return self.stack2.pop()
     def peek(self):
-        if not self.s2:
-            while self.s1:
-                self.s2.append(self.s1.pop())
-        return self.s2[-1]
+        if not self.stack2:
+            while self.stack1:
+                element = self.stack1.pop()
+                self.stack2.append(element)
+        return self.stack2[-1]
+    def isEmpty(self):
+        return len(self.stack1) == 0 and len(self.stack2) == 0
 
-    def empty(self):
-        return not self.s1 and not self.s2
-
-
-# Example usage (same as Java comments)
-if __name__ == "__main__":
-    obj = MyQueue()
-    obj.push(1)
-    obj.push(2)
-    print(obj.peek())   # Output: 1
-    print(obj.pop())    # Output: 1
-    print(obj.empty())  # Output: False
+queue = Queue()
+queue.push(5)
+queue.push(10)
+print(queue.pop())
+print(queue.peek())
+print(queue.isEmpty())
