@@ -15,3 +15,18 @@ class Solution(object):
 
         arr.sort()
         return arr[k - 1]
+
+
+import heapq
+
+class Solution(object):
+    def kthSmallest(self, matrix, k):
+        maxheap = []
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                heapq.heappush(maxheap, -matrix[i][j])
+                if len(maxheap) > k:
+                    heapq.heappop(maxheap)
+        return -maxheap[0]
+
+        
