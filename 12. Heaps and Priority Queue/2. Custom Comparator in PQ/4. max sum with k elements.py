@@ -33,3 +33,24 @@ class Solution(object):
             heapq.heappush(pq, Node(top + 1))
 
         return maxSum
+
+
+
+import heapq
+
+class Solution(object):
+    def maximizeSum(self, nums, k):
+        n = len(nums)
+        maxheap = []
+        for num in nums:
+            heapq.heappush(maxheap, -num)
+        
+        result = 0
+        for _ in range(k):
+            temp = heapq.heappop(maxheap)
+            val = -temp
+            result += val
+            heapq.heappush(maxheap, -(val+1))
+        return result
+
+        
