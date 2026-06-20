@@ -54,3 +54,20 @@ class Solution(object):
             ans.append([p.x, p.y])
 
         return ans
+
+
+class Solution(object):
+    def kClosest(self, points, k):
+        maxheap = []
+        for point in points:
+            first, second = point
+            dist = first*first+second*second
+            heapq.heappush(maxheap, Tuple(first, second, dist))
+            if len(maxheap) > k:
+                heapq.heappop(maxheap)
+        
+        result = []
+        while maxheap:
+            node = heapq.heappop(maxheap)
+            result.append([node.first, node.second])
+        return result
