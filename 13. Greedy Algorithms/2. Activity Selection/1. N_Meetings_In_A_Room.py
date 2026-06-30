@@ -15,3 +15,21 @@ class Solution:
                 lastEnd = e
                 
         return count
+
+
+
+class Solution:
+    def maxMeetings(self, s: list[int], f: list[int]) -> list[int]:
+        n = len(s)
+        meetings = []
+        for i in range(n):
+            meetings.append([s[i], f[i], i+1])
+        meetings.sort(key = lambda x: x[1])
+        result = []
+        lastend = -1
+        for start, end, idx in meetings:
+            if start > lastend:
+                result.append(idx)
+                lastend = end
+        result.sort()
+        return result
