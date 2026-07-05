@@ -19,3 +19,22 @@ class Solution(object):
             visited[i] = False
             current.pop()      
 
+
+
+class Solution(object):
+    def permute(self, nums):
+        result = []
+        self.func(nums, 0, result)
+        return result
+
+    def func(self, nums, index, result):
+        if index == len(nums):
+            result.append(nums[:])
+            return
+
+        for i in range(index, len(nums)):
+            nums[index], nums[i] = nums[i], nums[index]
+
+            self.func(nums, index + 1, result)
+
+            nums[index], nums[i] = nums[i], nums[index]
