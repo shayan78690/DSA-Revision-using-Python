@@ -20,13 +20,11 @@ class Solution:
             visited[i] = False
             current.pop()
             
-
-
 def generatePermutations(str):
-    str = "".join(sorted(str))
     result = []
     visited = [False] * len(str)
     func(str, result, [], visited)
+    result.sort()
     return result
 
 def func(str, result, current, visited):
@@ -42,3 +40,4 @@ def func(str, result, current, visited):
         visited[i] = False
         current.pop()
         
+
