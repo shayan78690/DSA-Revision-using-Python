@@ -25,3 +25,17 @@ class Solution(object):
         skip = self.func(nums, n, index+1, dp)
         dp[index] = max(take, skip)
         return dp[index]        
+
+
+
+class Solution(object):
+    def rob(self, nums):
+        n = len(nums)
+        dp = [0] * (n+2)
+        for i in range(n-1, -1, -1):
+            take = nums[i] + dp[i+2]
+            skip = dp[i+1]
+            dp[i] = max(take, skip)
+        return dp[0]    
+
+        
