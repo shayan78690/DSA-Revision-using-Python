@@ -23,7 +23,23 @@ class Solution:
         
 
 
+class Solution:
+    def ninjaTraining(self, n, points):
+        return self.func(0, 3, points, n)
 
+    def func(self, day, last, points, n):
+
+        if day == n:
+            return 0
+
+        maxi = 0
+
+        for task in range(3):
+            if task != last:
+                score = points[day][task] + self.func(day + 1, task, points, n)
+                maxi = max(maxi, score)
+
+        return maxi
 
 
 
