@@ -1,59 +1,56 @@
-class Solution(object):
-    def shortestCommonSupersequence(self, str1, str2):
-        return self.func(str1, str2, 0, 0)
-    def func(self, s1, s2, i, j):
-        if i == len(s1):
-            return s2[j:]
-
-        if j == len(s2):
-            return s1[i:]
-
+class Solution:
+    def minSuperSeq(self, s1, s2):
+        n, m = len(s1), len(s2)
+        lcs = self.func(s1, s2, n, m, 0, 0)
+        return (n+m)-lcs
+    
+    def func(self, s1, s2, n, m, i, j):
+        if i == n or j == m:
+            return 0
         if s1[i] == s2[j]:
-            return s1[i] + self.func(s1, s2, i + 1, j + 1)
+            return 1 + self.func(s1, s2, n, m, i+1, j+1)
+        skip1 = self.func(s1, s2, n, m, i+1, j)
+        skip2 = self.func(s1, s2, n, m, i, j+1)
+        return max(skip1, skip2)
 
-        first = s1[i] + self.func(s1, s2, i + 1, j)
-        second = s2[j] + self.func(s1, s2, i, j + 1)
-
-        if len(first) < len(second):
-            return first
-
-        return second
-
-
-
-class Solution(object):
-    def shortestCommonSupersequence(self, str1, str2):
-        n = len(str1)
-        m = len(str2)
-
-        dp = [[None] * (m + 1) for _ in range(n + 1)]
-
-        return self.func(str1, str2, 0, 0, dp)
-
-    def func(self, s1, s2, i, j, dp):
-
-        if i == len(s1):
-            return s2[j:]
-
-        if j == len(s2):
-            return s1[i:]
-
-        if dp[i][j] is not None:
+class Solution:
+    def minSuperSeq(self, s1, s2):
+        n, m = len(s1), len(s2)
+        dp = [[-1] * m for _ in range(n)]
+        lcs = self.func(s1, s2, n, m, 0, 0, dp)
+        return (n+m)-lcs
+    
+    def func(self, s1, s2, n, m, i, j, dp):
+        if i == n or j == m:
+            return 0
+        if dp[i][j] != -1:
             return dp[i][j]
-
         if s1[i] == s2[j]:
-            dp[i][j] = s1[i] + self.func(s1, s2, i + 1, j + 1, dp)
-            return dp[i][j]
-
-        first = s1[i] + self.func(s1, s2, i + 1, j, dp)
-        second = s2[j] + self.func(s1, s2, i, j + 1, dp)
-
-        if len(first) < len(second):
-            dp[i][j] = first
+            dp[i][j] = 1 + self.func(s1, s2, n, m, i+1, j+1, dp)
         else:
-            dp[i][j] = second
-
+            skip1 = self.func(s1, s2, n, m, i+1, j, dp)
+            skip2 = self.func(s1, s2, n, m, i, j+1, dp)
+            dp[i][j] = max(skip1, skip2)
         return dp[i][j]
+
+
+class Solution:
+    def minSuperSeq(self, s1, s2):
+        n, m = len(s1), len(s2)
+        dp = [[0] * (m+1) for _ in range(n+1)]
+        for i in range(n-1, -1, -1):
+            for j in range(m-1, -1, -1):
+                if s1[i] == s2[j]:
+                    dp[i][j] = 1 + dp[i+1][j+1]
+                else:
+                    dp[i][j] = max(dp[i+1][j], dp[i][j+1])
+        
+        lcs = dp[0][0]
+        return (n+m)-lcs
+    
+
+
+
 
 
 class Solution(object):
