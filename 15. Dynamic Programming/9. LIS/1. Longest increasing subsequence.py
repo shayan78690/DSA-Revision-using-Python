@@ -59,3 +59,21 @@ class Solution(object):
                 dp[index][prevIndex + 1] = max(skip, take)
 
         return dp[0][0]
+
+
+
+
+class Solution(object):
+    def lengthOfLIS(self, nums):
+        n = len(nums)
+        dp = [1] * n
+        for index in range(n):
+            for prevIndex in range(0, index):
+                if nums[index] > nums[prevIndex]:
+                    dp[index] = max(dp[index], dp[prevIndex]+1)
+        
+        return max(dp)
+# dp[i] signifies the longest increasing subsequence that ends at index i
+        # 5, 4, 11, 1, 16, 8
+        # 1, 1, 2, 1, 3, 2
+        # lis = 3
