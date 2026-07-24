@@ -7,15 +7,15 @@
 class Solution(object):
     def maxPathSum(self, root):
         self.maxSum = float('-inf')
-        self.bfs(root)
+        self.dfs(root)
         return self.maxSum
     
-    def bfs(self, root):
+    def dfs(self, root):
         if not root:
             return 0
-        left = max(0, self.bfs(root.left))
-        right = max(0, self.bfs(root.right))
+        left = max(0, self.dfs(root.left))
+        right = max(0, self.dfs(root.right))
         self.maxSum = max(self.maxSum, left+right+root.val)
 
         return root.val + max(left, right)
-        
+
