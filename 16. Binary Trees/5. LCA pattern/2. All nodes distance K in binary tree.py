@@ -6,60 +6,56 @@
 #         self.right = None
 
 from collections import deque
-
 class Solution(object):
-    def findParent(self, parentMap, root):
-        q = deque([root])
+    def distanceK(self, root, target, k):
+        if not root:
+            return []
+        parentMap = {}
+        self.findParent(root, parentMap)
+        return self.bfs(root, target, k, parentMap)
 
+    
+
+    def findParent(self, root, parentMap):
+        q = deque()
+        q.append(root)
         while q:
             node = q.popleft()
-
             if node.left:
                 parentMap[node.left] = node
                 q.append(node.left)
-
             if node.right:
                 parentMap[node.right] = node
                 q.append(node.right)
 
-    def distanceK(self, root, target, k):
-        parentMap = {}
-        self.findParent(parentMap, root)
-
+    def bfs(self, root, target, k, parentMap):
+        q = deque()
         visited = set()
-        q = deque([target])
+        q.append(target)
         visited.add(target)
-
         level = 0
-
         while q:
-            size = len(q)
-
             if level == k:
                 break
-
-            level += 1
-
-            for _ in range(size):
+            for _ in range(len(q)):
                 node = q.popleft()
-
                 if node.left and node.left not in visited:
                     visited.add(node.left)
                     q.append(node.left)
-
                 if node.right and node.right not in visited:
                     visited.add(node.right)
                     q.append(node.right)
-
-                parent = parentMap.get(node)
-
-                if parent and parent not in visited:
-                    visited.add(parent)
-                    q.append(parent)
-
-        ans = []
-
+                
+                if node in parentMap and parentMap[node] not in visited:
+                    visited.add(parentMap[node])
+                    q.append(parentMap[node])
+            level += 1
+        
+        result = []
         while q:
-            ans.append(q.popleft().val)
+            node = q.popleft()
+            result.append(node.val)
+        return result
 
-        return ans
+                
+        
