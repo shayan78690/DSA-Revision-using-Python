@@ -1,28 +1,24 @@
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
     def pathSum(self, root, targetSum):
-        if root is None:
+        if not root:
             return 0
 
-        def countPaths(node, remaining):
-            if node is None:
-                return 0
+        return (
+            self.func(root, targetSum)
+            + self.pathSum(root.left, targetSum)
+            + self.pathSum(root.right, targetSum)
+        )
 
-            count = 0
+    def func(self, root, targetSum):
+        if not root:
+            return 0
 
-            if node.val == remaining:
-                count += 1
+        count = 0
 
-            count += countPaths(node.left, remaining - node.val)
-            count += countPaths(node.right, remaining - node.val)
+        if root.val == targetSum:
+            count += 1
 
-            return count
+        count += self.func(root.left, targetSum - root.val)
+        count += self.func(root.right, targetSum - root.val)
 
-        return (countPaths(root, targetSum) +
-                self.pathSum(root.left, targetSum) +
-                self.pathSum(root.right, targetSum))
+        return count
