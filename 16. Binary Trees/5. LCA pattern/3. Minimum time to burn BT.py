@@ -1,15 +1,18 @@
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-
 from collections import deque
 
-class Solution(object):
+class Solution:
+    def minTime(self, root, target):
+        if not root:
+            return 0
 
-    def findParent(self, parentMap, root):
+        parentMap = {}
+        self.findParent(root, parentMap)
+
+        targetNode = self.findTarget(root, target)
+
+        return self.bfs(targetNode, parentMap)
+
+    def findParent(self, root, parentMap):
         q = deque([root])
 
         while q:
@@ -23,49 +26,47 @@ class Solution(object):
                 parentMap[node.right] = node
                 q.append(node.right)
 
-    def findStart(self, root, start):
+    def findTarget(self, root, target):
         if not root:
             return None
 
-        if root.val == start:
+        if root.data == target:
             return root
 
-        left = self.findStart(root.left, start)
+        left = self.findTarget(root.left, target)
         if left:
             return left
 
-        return self.findStart(root.right, start)
+        return self.findTarget(root.right, target)
 
-    def amountOfTime(self, root, start):
-        parentMap = {}
-        self.findParent(parentMap, root)
+    def bfs(self, targetNode, parentMap):
+        q = deque([targetNode])
+        visited = set([targetNode])
 
-        startNode = self.findStart(root, start)
-
-        visited = set()
-        q = deque([startNode])
-        visited.add(startNode)
-
-        time = -1
+        time = 0
 
         while q:
-            size = len(q)
-            time += 1
+            burned = False
 
-            for _ in range(size):
+            for _ in range(len(q)):
                 node = q.popleft()
 
                 if node.left and node.left not in visited:
                     visited.add(node.left)
                     q.append(node.left)
+                    burned = True
 
                 if node.right and node.right not in visited:
                     visited.add(node.right)
                     q.append(node.right)
+                    burned = True
 
-                parent = parentMap.get(node)
-                if parent and parent not in visited:
-                    visited.add(parent)
-                    q.append(parent)
+                if node in parentMap and parentMap[node] not in visited:
+                    visited.add(parentMap[node])
+                    q.append(parentMap[node])
+                    burned = True
+
+            if burned:
+                time += 1
 
         return time
