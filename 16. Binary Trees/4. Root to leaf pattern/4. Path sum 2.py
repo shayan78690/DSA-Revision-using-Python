@@ -6,23 +6,20 @@
 #         self.right = right
 class Solution(object):
     def pathSum(self, root, targetSum):
-        ans = []
-
-        def dfs(node, remaining, path):
-            if node is None:
-                return
-
-            path.append(node.val)
-            remaining -= node.val
-
-            if node.left is None and node.right is None:
-                if remaining == 0:
-                    ans.append(path[:])
-            else:
-                dfs(node.left, remaining, path)
-                dfs(node.right, remaining, path)
-
-            path.pop()
-
-        dfs(root, targetSum, [])
-        return ans
+        result = []
+        self.func(root, targetSum, result, [])
+        return result
+    
+    def func(self, root, targetSum, result, path):
+        if not root:
+            return
+        
+        path.append(root.val)
+        targetSum -= root.val
+        if not root.left and not root.right:
+            if targetSum == 0:
+                result.append(path[:])
+        else:
+            self.func(root.left, targetSum, result, path)
+            self.func(root.right, targetSum, result, path)
+        path.pop()
