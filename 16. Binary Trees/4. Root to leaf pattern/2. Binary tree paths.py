@@ -15,12 +15,14 @@ class Solution(object):
         return result
 
     def dfs(self, node, path, result):
+        if not node:
+            return
+
         if not node.left and not node.right:
             result.append(path + str(node.val))
             return
 
-        if node.left:
-            self.dfs(node.left, path + str(node.val) + "->", result)
+        path = path + str(node.val) + "->"
 
-        if node.right:
-            self.dfs(node.right, path + str(node.val) + "->", result)
+        self.dfs(node.left, path, result)
+        self.dfs(node.right, path, result)
