@@ -24,3 +24,28 @@ class Solution(object):
                     q.append(node.right)
         return result
         
+
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+from collections import deque
+class Solution(object):
+    def rightSideView(self, root):
+        result = []
+        if not root:
+            return result
+        self.dfs(root, result, 0)
+        return result
+    
+    def dfs(self, root, result, level):
+        if not root:
+            return 
+        if len(result) == level:
+            result.append(root.val)
+        self.dfs(root.right, result, level+1)
+        self.dfs(root.left, result, level+1)
+        
