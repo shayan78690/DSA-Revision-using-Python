@@ -9,15 +9,12 @@ class Node:
 
 class Solution:
     def isSumProperty(self, root):
-        if root is None:
+        if not root:
             return True
-
-        if root.left is None and root.right is None:
+        if not root.left and not root.right:
             return True
-
+        
         left = root.left.data if root.left else 0
         right = root.right.data if root.right else 0
-
-        return (root.data == left + right and
-                self.isSumProperty(root.left) and
-                self.isSumProperty(root.right))
+        
+        return root.data == left+right and self.isSumProperty(root.left) and self.isSumProperty(root.right)
