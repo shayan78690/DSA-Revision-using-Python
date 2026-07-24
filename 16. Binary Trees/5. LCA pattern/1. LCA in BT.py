@@ -1,8 +1,7 @@
 class Solution:
     def lowestCommonAncestor(self, root, p, q):
-        if root is None:
+        if not root:
             return None
-
         if root == p or root == q:
             return root
 
