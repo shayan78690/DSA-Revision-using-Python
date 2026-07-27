@@ -1,0 +1,32 @@
+from collections import deque
+
+class Solution:
+    def eventualSafeNodes(self, graph):
+        n = len(graph)
+
+        reverse = [[] for _ in range(n)]
+        indegree = [0] * n
+
+        for u in range(n):
+            indegree[u] = len(graph[u])
+            for v in graph[u]:
+                reverse[v].append(u)
+
+        queue = deque()
+
+        for i in range(n):
+            if indegree[i] == 0:
+                queue.append(i)
+
+        safe = []
+
+        while queue:
+            node = queue.popleft()
+            safe.append(node)
+
+            for parent in reverse[node]:
+                indegree[parent] -= 1
+                if indegree[parent] == 0:
+                    queue.append(parent)
+
+        return sorted(safe)
