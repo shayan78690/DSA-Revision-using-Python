@@ -14,6 +14,8 @@ class Solution:
         while minheap:
             d, node = heapq.heappop(minheap)
             for neighbour, weight in adj[node]:
+                if d > dist[node]:
+                    continue
                 if d + weight < dist[neighbour]:
                     dist[neighbour] = d + weight
                     heapq.heappush(minheap, (d+weight, neighbour))
