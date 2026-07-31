@@ -47,4 +47,48 @@ class Solution(object):
                     bfs(i, j)
                     count += 1
         return count
+
+
+
+
+class DSU:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.size = [1] * n
+
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
+    def union(self, u, v):
+        pu = self.find(u)
+        pv = self.find(v)
+
+        if pu == pv:
+            return
+
+        if self.size[pu] < self.size[pv]:
+            pu, pv = pv, pu
+
+        self.parent[pv] = pu
+        self.size[pu] += self.size[pv]
+
+class Solution:
+    def findCircleNum(self, isConnected):
+        n = len(isConnected)
+        dsu = DSU(n)
+
+        for i in range(n):
+            for j in range(i + 1, n):
+                if isConnected[i][j] == 1:
+                    dsu.union(i, j)
+
+        provinces = 0
+
+        for i in range(n):
+            if dsu.find(i) == i:
+                provinces += 1
+
+        return provinces
         
