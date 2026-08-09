@@ -82,15 +82,15 @@ class Solution:
             for last in range(4):
                 first = 0
                 if last != 0:
-                    first = max(first, mat[day][0] + dp[day+1][0])
+                    first = mat[day][0] + dp[day+1][0]
         
                 second = 0
                 if last != 1:
-                    second = max(second, mat[day][1] + dp[day+1][1])
+                    second = mat[day][1] + dp[day+1][1]
         
                 third = 0
                 if last != 2:
-                    third = max(third, mat[day][2] + dp[day+1][2])
+                    third = mat[day][2] + dp[day+1][2]
         
                 dp[day][last] = max(first, second, third)
         
