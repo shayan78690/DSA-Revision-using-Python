@@ -31,3 +31,15 @@ class Solution(object):
         return dp[n]
 
 
+class Solution(object):
+    def numSquares(self, n):
+        dp = [0] * (n+1)
+        for remaining in range(1, n+1):
+            ans = float('inf')
+            i = 1
+            while i*i <= remaining:
+                ans = min(ans, 1 + dp[remaining-i*i])
+                i += 1
+            dp[remaining] = ans
+        return dp[n]
+
