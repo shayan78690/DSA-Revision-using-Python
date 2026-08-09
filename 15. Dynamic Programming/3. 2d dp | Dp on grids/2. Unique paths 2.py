@@ -48,12 +48,13 @@ class Solution(object):
         n = len(obstacleGrid)
         m = len(obstacleGrid[0])
         dp = [[0] * m for _ in range(n)]
+        dp[n-1][m-1] = 1
         for i in range(n-1, -1, -1):
             for j in range(m-1, -1, -1):
                 if obstacleGrid[i][j] == 1:
                     dp[i][j] = 0
                 elif i == n-1 and j == m-1:
-                    dp[i][j] = 1
+                    continue
                 else:
                     right = 0
                     down = 0
