@@ -95,3 +95,20 @@ class Solution:
                 dp[day][last] = max(first, second, third)
         
         return dp[0][3]
+
+
+
+class Solution:
+    def maximumPoints(self, mat):
+        n = len(mat)
+        dp = [[0] * 4 for _ in range(n+1)]
+        
+        for day in range(n-1, -1, -1):
+            for last in range(4):
+                maxi = 0
+                for task in range(3):
+                    if task != last:
+                        points = dp[day+1][task] + mat[day][task]
+                        maxi = max(maxi, points)
+                dp[day][last] = maxi
+        return dp[0][3]
