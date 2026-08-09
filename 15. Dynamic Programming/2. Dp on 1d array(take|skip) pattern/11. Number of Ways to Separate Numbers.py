@@ -59,6 +59,7 @@ class Solution(object):
 
 
 
+
 class Solution(object):
     def numberOfCombinations(self, num):
         n = len(num)
@@ -66,20 +67,20 @@ class Solution(object):
 
         dp = [[0] * (n + 1) for _ in range(n + 1)]
 
-        for prev_index in range(n + 1):
-            dp[n][prev_index] = 1
+        for prev_start in range(n + 1):
+            dp[n][prev_start] = 1
 
         for index in range(n - 1, -1, -1):
 
             if num[index] == "0":
                 continue
 
-            for prev_index in range(n + 1):
+            for prev_start in range(n + 1):
 
-                if prev_index == n:
+                if prev_start == n:
                     prev = ""
                 else:
-                    prev = num[prev_index:index]
+                    prev = num[prev_start:index]
 
                 count = 0
 
@@ -88,13 +89,9 @@ class Solution(object):
                     current = num[index:end + 1]
 
                     if prev == "" or self.isValid(current, prev):
+                        count = (count + dp[end + 1][index]) % MOD
 
-                        count = (
-                            count +
-                            dp[end + 1][index]
-                        ) % MOD
-
-                dp[index][prev_index] = count
+                dp[index][prev_start] = count
 
         return dp[0][n]
 
