@@ -1,3 +1,18 @@
+class Solution(object):
+    def findTargetSumWays(self, nums, target):
+        n = len(nums)
+        return self.solve(nums, n, target, 0, 0)
+    
+    def solve(self, nums, n, target, index, current_sum):
+        if index == n:
+            if current_sum == target:
+                return 1
+            return 0
+        positive = self.solve(nums, n, target, index+1, current_sum+nums[index])
+        negative = self.solve(nums, n, target, index+1, current_sum-nums[index])
+        return positive + negative
+        
+
 class Solution:
 
     def findTargetSumWays(self, nums, target):
