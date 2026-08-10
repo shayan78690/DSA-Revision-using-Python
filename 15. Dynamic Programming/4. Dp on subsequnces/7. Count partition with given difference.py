@@ -1,4 +1,58 @@
 class Solution:
+    def countPartitions(self, arr, diff):
+        n = len(arr)
+        total = sum(arr)
+        dp = [[-1] * (total+1) for _ in range(n+1)]
+        return self.solve(arr, n, diff, total, 0, 0, dp)
+
+    def solve(self, arr, n, diff, total, index, subset1, dp):
+        if index == n:
+            subset2 = total - subset1
+            if subset1 - subset2 == diff:
+                return 1
+            return 0
+        if dp[index][subset1] != -1:
+            return dp[index][subset1]
+        skip = self.solve(
+            arr, n, diff, total,
+            index + 1,
+            subset1,
+            dp
+        )
+        take = self.solve(
+            arr, n, diff, total,
+            index + 1,
+            subset1 + arr[index],
+            dp
+        )
+        dp[index][subset1] = take + skip
+        return dp[index][subset1]
+
+
+class Solution:
+    def countPartitions(self, arr, diff):
+        n = len(arr)
+        total = sum(arr)
+        dp = [[0] * (total+1) for _ in range(n+1)]
+        for subset1 in range(total+1):
+            subset2 = total - subset1
+            if subset1 - subset2 == diff:
+                dp[n][subset1] = 1
+                
+        for index in range(n-1, -1, -1):
+            for subset1 in range(total+1):
+                skip = dp[index+1][subset1]
+                take = 0
+                if arr[index] + subset1 <= total:
+                    take = dp[index+1][subset1+arr[index]]
+                dp[index][subset1] = take + skip
+        return dp[0][0]
+
+
+
+
+
+class Solution:
 
     def countPartitions(self, arr, diff):
         total = sum(arr)
