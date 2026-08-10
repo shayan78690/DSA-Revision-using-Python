@@ -76,30 +76,23 @@ class Solution:
 
 
 
-class Solution:
-    def minDifference(self, arr):
-        total = sum(arr)
-        n = len(arr)
+from typing import List
 
-        dp = [[0] * (total + 1) for _ in range(n + 1)]
-
-        for currentSum in range(total + 1):
-            dp[n][currentSum] = abs(total - 2 * currentSum)
-
-        for index in range(n - 1, -1, -1):
-            for currentSum in range(total, -1, -1):
-
-                take = float('inf')
-                if currentSum + arr[index] <= total:
-                    take = dp[index + 1][currentSum + arr[index]]
-
-                notTake = dp[index + 1][currentSum]
-
-                dp[index][currentSum] = min(take, notTake)
-
-        return dp[0][0]
-
-
-
-
-
+def minSubsetSumDifference(arr: List[str], n: int) -> int:
+    # total = S
+    # S1 = x
+    # S2 = S-x
+    # We need to minimize (S-x)-x or S-2*x 
+    total = sum(arr)
+    dp = [[0] * (total+1) for _ in range(n+1)]
+    for subset_sum1 in range(total+1):
+        dp[n][subset_sum1] = abs(total-2*subset_sum1)
+    for index in range(n-1, -1, -1):
+        for subset_sum1 in range(total+1):
+            skip = dp[index+1][subset_sum1]
+            take = 0
+            if subset_sum1+arr[index] <= total:
+                take = dp[index+1][subset_sum1+arr[index]]
+            dp[index][subset_sum1] = min(take, skip)
+    return dp[0][0]
+    
