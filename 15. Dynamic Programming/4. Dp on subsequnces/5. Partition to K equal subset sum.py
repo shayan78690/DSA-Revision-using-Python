@@ -24,49 +24,6 @@ class Solution(object):
                 return True
             visited[i] = False
 
-
-
-
-class Solution:
-    def canPartitionKSubsets(self, nums, k):
-        total = sum(nums)
-        if total % k != 0:
-            return False
-        target = total // k
-        nums.sort(reverse=True)
-        if nums[0] > target:
-            return False
-        used = [False] * len(nums)
-        return self.solve(nums, used, k, 0, 0, target)
-
-    def solve(self, nums, used, k, start, currSum, target):
-        if k == 1:
-            return True
-        if currSum == target:
-            return self.solve(nums, used, k - 1, 0, 0, target)
-        prev = -1
-        for i in range(start, len(nums)):
-            if used[i]:
-                continue
-            if nums[i] == prev:
-                continue
-
-            if currSum + nums[i] > target:
-                continue
-
-            used[i] = True
-
-            if self.solve(nums, used, k, i + 1, currSum + nums[i], target):
-                return True
-
-            used[i] = False
-
-            prev = nums[i]
-
-            if currSum == 0:
-                break
-
-        return False
         return False
 
    
