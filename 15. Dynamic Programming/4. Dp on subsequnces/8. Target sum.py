@@ -11,6 +11,29 @@ class Solution(object):
         positive = self.solve(nums, n, target, index+1, current_sum+nums[index])
         negative = self.solve(nums, n, target, index+1, current_sum-nums[index])
         return positive + negative
+
+class Solution(object):
+    def findTargetSumWays(self, nums, target):
+        n = len(nums)
+        total = sum(nums)
+        if abs(target) > total:
+            return 0
+        offset = total
+        dp = [[-1] * (2*total+1) for _ in range(n+1)]
+        return self.solve(nums, n, target, 0, 0, offset, dp)
+    
+    def solve(self, nums, n, target, index, current_sum, offset, dp):
+        if index == n:
+            if current_sum == target:
+                return 1
+            return 0
+        if dp[index][current_sum+offset] != -1:
+            return dp[index][current_sum+offset]
+        positive = self.solve(nums, n, target, index+1, current_sum+nums[index], offset, dp)
+        negative = self.solve(nums, n, target, index+1, current_sum-nums[index], offset, dp)
+        dp[index][current_sum+offset] = positive  + negative
+        return dp[index][current_sum+offset]
+        
         
 
 class Solution:
