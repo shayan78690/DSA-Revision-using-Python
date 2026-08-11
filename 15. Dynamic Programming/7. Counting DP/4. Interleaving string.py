@@ -21,31 +21,4 @@ class Solution(object):
             return dp[i][j]
         return solve(0, 0)
 
-
-
-class Solution(object):
-    def isInterleave(self, s1, s2, s3):
-        n, m = len(s1), len(s2)
-
-        if n + m != len(s3):
-            return False
-
-        dp = [[False] * (m + 1) for _ in range(n + 1)]
-
-        dp[n][m] = True
-
-        for i in range(n, -1, -1):
-            for j in range(m, -1, -1):
-
-                if i == n and j == m:
-                    continue
-
-                k = i + j
-
-                if i < n and s1[i] == s3[k]:
-                    dp[i][j] = dp[i][j] or dp[i + 1][j]
-
-                if j < m and s2[j] == s3[k]:
-                    dp[i][j] = dp[i][j] or dp[i][j + 1]
-
-        return dp[0][0]
+        
