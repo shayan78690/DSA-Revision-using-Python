@@ -80,19 +80,15 @@ class Solution:
 
 
 class Solution:
-
-    def cutRod(self, price):
+    def cutRod(self, price: list[int]) -> int:
         n = len(price)
-
-        dp = [0] * (n + 1)
-
-        for index in range(n):
-            pieceLength = index + 1
-
-            for remaining in range(pieceLength, n + 1):
-                dp[remaining] = max(
-                    dp[remaining],
-                    price[index] + dp[remaining - pieceLength]
-                )
-
-        return dp[n]
+        dp = [[0] * (n+1) for _ in range(n+1)]
+        for index in range(n-1, -1, -1):
+            piece_length = index+1
+            for remaining in range(n+1):
+                not_cut = dp[index+1][remaining]
+                cut = 0
+                if piece_length <= remaining:
+                    cut = dp[index][remaining-piece_length] + price[index]
+                dp[index][remaining] = max(cut, not_cut)
+        return dp[0][n]
