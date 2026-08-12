@@ -8,14 +8,16 @@ class Solution(object):
                 if arr[index]-arr[prev] == difference:
                     dp[index] = max(dp[index], dp[prev]+1)
         return max(dp)
-
-  class Solution(object):
+class Solution(object):
     def longestSubsequence(self, arr, difference):
-        n = len(arr)
+        # current-prev = diff
+        # prev = current-diff
         dp = {}
-        ans = 0
-        for x in arr:
-            dp[x] = dp.get(x-difference, 0) + 1
-            ans = max(ans, dp[x])
-        return ans
+        n = len(arr)
+        maxi = 0
+        for current in arr:
+            prev = current-difference
+            dp[current] = dp.get(prev, 0) + 1
+            maxi = max(maxi, dp[current])
+        return maxi
         
