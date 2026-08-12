@@ -10,3 +10,28 @@ class Solution(object):
 
 
 
+
+
+class Solution(object):
+    def longestObstacleCourseAtEachPosition(self, arr):
+        result = []
+        tail = []
+
+        for x in arr:
+            low = 0
+            high = len(tail) - 1
+            while low <= high:
+                mid = (low + high) // 2
+                if tail[mid] > x:
+                    high = mid-1
+                else:
+                    low = mid + 1
+            pos = low
+            if pos == len(tail):
+                tail.append(x)
+            else:
+                tail[pos] = x
+
+            result.append(pos + 1)
+
+        return result
