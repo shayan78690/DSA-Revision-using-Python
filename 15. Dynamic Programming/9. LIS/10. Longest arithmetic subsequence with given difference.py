@@ -21,3 +21,21 @@ class Solution(object):
             maxi = max(maxi, dp[current])
         return maxi
         
+
+
+class Solution(object):
+    def longestSubsequence(self, arr, difference):
+        # current-prev = diff
+        # prev = current-diff
+        dp = {}
+        n = len(arr)
+        maxi = 0
+        for current in arr:
+            prev = current-difference
+            if prev in dp:
+                dp[current] = dp[prev] + 1
+            else:
+                dp[current] = 1
+            maxi = max(maxi, dp[current])
+        return maxi
+        
